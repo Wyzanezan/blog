@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wyzane.gitee.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="git 是一个版本控制系统，现在大部分项目都会使用它来管理开发的项目，下面整理了 git 的常用命令及使用方式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git操作与分支管理">
+<meta property="og:url" content="http://wyzane.gitee.io/blog/2020/06/21/git%E6%93%8D%E4%BD%9C%E4%B8%8E%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Wyzane&#39;s Blog">
+<meta property="og:description" content="git 是一个版本控制系统，现在大部分项目都会使用它来管理开发的项目，下面整理了 git 的常用命令及使用方式。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-21T13:38:08.000Z">
+<meta property="article:modified_time" content="2020-06-27T02:36:16.000Z">
+<meta property="article:author" content="Wyzane">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://wyzane.gitee.io/blog/2020/06/21/git%E6%93%8D%E4%BD%9C%E4%B8%8E%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>git操作与分支管理 | Wyzane's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/blog/atom.xml" title="Wyzane's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+	<a href="https://github.com/wyzane" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wyzane's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-reader">
+
+    <a href="/blog/categories/reader/" rel="section"><i class="fa fa-calendar fa-fw"></i>读书</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wyzane.gitee.io/blog/2020/06/21/git%E6%93%8D%E4%BD%9C%E4%B8%8E%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="Wyzane">
+      <meta itemprop="description" content="生活如诗，岁月如歌，等我们来谱曲填词！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wyzane's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git操作与分支管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-21 21:38:08" itemprop="dateCreated datePublished" datetime="2020-06-21T21:38:08+08:00">2020-06-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-27 10:36:16" itemprop="dateModified" datetime="2020-06-27T10:36:16+08:00">2020-06-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>git 是一个版本控制系统，现在大部分项目都会使用它来管理开发的项目，下面整理了 git 的常用命令及使用方式。</p>
+<a id="more"></a>
+
+<h1 id="Git基础"><a href="#Git基础" class="headerlink" title="Git基础"></a>Git基础</h1><h2 id="git最小配置"><a href="#git最小配置" class="headerlink" title="git最小配置"></a>git最小配置</h2><p>配置 username 和 email</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &#39;your name&#39;</span><br><span class="line">git config --global user.email &#39;your email&#39;</span><br></pre></td></tr></table></figure>
+
+<p>配置 email 的目的，当版本库中的代码变更时，会记录对应开发人员的 email 等信息，当进行 code review 时，若相应变更的代码有问题，会发送邮件通知到对应的开发者。</p>
+<p>config的 三个作用域：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --local  缺省配置，表示只对某个仓库有效</span><br><span class="line">git config --global 对当前用户所有仓库有效</span><br><span class="line">git config --system 对系统所有的登录用户有效</span><br></pre></td></tr></table></figure>
+
+<p>当我们需要显示 config 的配置信息时，使用 –list 就行了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --list --local</span><br><span class="line">git config --list --global</span><br><span class="line">git config --list --system</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">λ git config --list --global</span><br><span class="line">user.email&#x3D;wyzane1207@163.com</span><br><span class="line">user.name&#x3D;wyzane</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">λ git config --list</span><br><span class="line">core.symlinks&#x3D;false</span><br><span class="line">core.autocrlf&#x3D;true</span><br><span class="line">core.fscache&#x3D;true</span><br><span class="line">color.diff&#x3D;auto</span><br><span class="line">color.status&#x3D;auto</span><br><span class="line">color.branch&#x3D;auto</span><br><span class="line">color.interactive&#x3D;true</span><br><span class="line">help.format&#x3D;html</span><br><span class="line">rebase.autosquash&#x3D;true</span><br><span class="line">http.sslbackend&#x3D;openssl</span><br><span class="line">http.sslcainfo&#x3D;D:&#x2F;software&#x2F;Git&#x2F;mingw64&#x2F;ssl&#x2F;certs&#x2F;ca-bundle.crt</span><br><span class="line">credential.helper&#x3D;manager</span><br><span class="line">user.email&#x3D;wyzane1207@163.com</span><br><span class="line">user.name&#x3D;wyzane</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><h3 id="把已有项目代码纳入版本管理"><a href="#把已有项目代码纳入版本管理" class="headerlink" title="把已有项目代码纳入版本管理"></a>把已有项目代码纳入版本管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd 项目代码所在文件夹</span><br><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<h3 id="新建一个git仓库"><a href="#新建一个git仓库" class="headerlink" title="新建一个git仓库"></a>新建一个git仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd 某个文件夹</span><br><span class="line">git init 目录名</span><br><span class="line">cd 目录名</span><br></pre></td></tr></table></figure>
+
+<p>新建一个git仓库的例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">λ git init demo1</span><br><span class="line">Initialized empty Git repository in F:&#x2F;GitTest&#x2F;demo1&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>此时执行 git config –global –list 的结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">λ git config --global --list</span><br><span class="line">user.email&#x3D;wyzane1207@163.com</span><br><span class="line">user.name&#x3D;wyzane</span><br></pre></td></tr></table></figure>
+
+<p>在 demo1 仓库中，执行如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">λ git config --local user.name &#39;wz&#39;</span><br><span class="line">λ git config --local user.email &#39;wyzane1207@gmail.com&#39;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="添加一个文件"><a href="#添加一个文件" class="headerlink" title="添加一个文件"></a>添加一个文件</h2><p>在 dem01 目录下，新建文件 readme.md，此时执行 git status，显示如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">        readme.md</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
+
+<p>此时显示，readme.md 文件是未被跟踪的文件，执行 git add readme.md，此时再执行 git status，显示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        new file:   readme.md</span><br></pre></td></tr></table></figure>
+
+<p>然后执行 git commit -m ‘readme.md’，表示将文件提交到本地仓库中，执行完，显示结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">λ git commit -m &#39;reaeme.md&#39;</span><br><span class="line">[master (root-commit) 28f3903] &#39;reaeme.md&#39;</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 readme.md</span><br></pre></td></tr></table></figure>
+
+<p>此时，可以用 git log 命令查看提交记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">λ git log</span><br><span class="line">commit 28f3903644aea0102c9e7b7a6789b5990a45db50 (HEAD -&gt; master)</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Mon Jun 22 22:41:14 2020 +0800</span><br><span class="line"></span><br><span class="line">    &#39;reaeme.md&#39;</span><br></pre></td></tr></table></figure>
+
+<p>从上面的结果中可以看出 local 配置会覆盖 global 配置。</p>
+<h2 id="往仓库里添加文件"><a href="#往仓库里添加文件" class="headerlink" title="往仓库里添加文件"></a>往仓库里添加文件</h2><p>上面使用的 git add、git commit 等命令的功能如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git status: 查看工作目录和暂存区的状态</span><br><span class="line">git add: 将工作目录的改动添加到暂存区</span><br><span class="line">	git add -u：将工作区中，已经被git管理的文件添加到暂存区（没有被管理的则不会添加到暂存区）</span><br><span class="line">git commit: 将暂存区的高的那个添加到本地仓库</span><br><span class="line">git log: 查看当前分支的本地 commit 的历史记录 （查看所有分支的提交记录使用 git log --all）</span><br></pre></td></tr></table></figure>
+
+<p>git log 显示结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">λ git log</span><br><span class="line">commit 683cbacc9aae84b55bf03a37217f09b23ec71b5a (HEAD -&gt; master)</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 22:50:22 2020 +0800</span><br><span class="line"></span><br><span class="line">    update</span><br><span class="line"></span><br><span class="line">commit 9548167eda1557775206f988e129625c8ebc664e</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 22:41:51 2020 +0800</span><br><span class="line"></span><br><span class="line">    add index</span><br><span class="line"></span><br><span class="line">commit 28f3903644aea0102c9e7b7a6789b5990a45db50</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Mon Jun 22 22:41:14 2020 +0800</span><br><span class="line"></span><br><span class="line">    add readme</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="文件重命名"><a href="#文件重命名" class="headerlink" title="文件重命名"></a>文件重命名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">文件的重命名可以在工作目录中完成，然后添加到暂存区，再提交到本地仓库。这样的方式有如下问题：</span><br><span class="line">F:\GitTest\demo1 (master -&gt; origin)</span><br><span class="line">λ mv index2.html index02.html</span><br><span class="line"></span><br><span class="line">F:\GitTest\demo1 (master -&gt; origin)</span><br><span class="line">λ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add&#x2F;rm &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        deleted:    index2.html</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">        index02.html</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br><span class="line"></span><br><span class="line">从上面的显示可以看出，在工作目录中重命名是先删除文件，再创建新文件。然后还需要执行以下命令：</span><br><span class="line">git add index02.html</span><br><span class="line">git rm index2.html  删除暂存区中的文件</span><br><span class="line">执行 git status 打印如下：</span><br><span class="line">λ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        renamed:    index2.html -&gt; index02.html</span><br></pre></td></tr></table></figure>
+
+<p>把暂存区中所有的修改还原：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard</span><br></pre></td></tr></table></figure>
+
+<p>上面的更改文件名的操作，可以使用下面的命令直接修改暂存区：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git mv index.html index02.html</span><br><span class="line"></span><br><span class="line">此时再执行 git status，结果如下：</span><br><span class="line">λ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        renamed:    index2.html -&gt; index02.html</span><br><span class="line">        </span><br><span class="line">这个结果，跟上面的结果一致。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="查看版本历史"><a href="#查看版本历史" class="headerlink" title="查看版本历史"></a>查看版本历史</h2><p>我们可以使用 git log 命令查看版本历史，git log 命令还有以下几种用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">1. git log --oneline  查看简洁的 log 信息</span><br><span class="line">febad01 (HEAD -&gt; master) 修改文件名</span><br><span class="line">683cbac update</span><br><span class="line">9548167 add index</span><br><span class="line">28f3903 add readme</span><br><span class="line"></span><br><span class="line">2. git log -n2  使用 -n 加数字的方式查看最近的几次提交 或者 git log -n2 --oneline</span><br><span class="line">commit febad01c1b094e73047b204fd31b827cb2a86ff2 (HEAD -&gt; master)</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 23:02:37 2020 +0800</span><br><span class="line"></span><br><span class="line">    修改文件名</span><br><span class="line"></span><br><span class="line">commit 683cbacc9aae84b55bf03a37217f09b23ec71b5a</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 22:50:22 2020 +0800</span><br><span class="line"></span><br><span class="line">    update</span><br><span class="line">    </span><br><span class="line">3. git log --all --graph  使用图形化的形式展示分支的提交父子关系</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">上面的所有参数都可以组合使用，还可以使用 git help --web log 查看更多 git log 参数。</span><br></pre></td></tr></table></figure>
+
+<p>使用 gitk 命令可以打开图形界面，查看项目的版本历史。</p>
+<h2 id="git目录介绍"><a href="#git目录介绍" class="headerlink" title=".git目录介绍"></a>.git目录介绍</h2><p>执行 git init 后，会生成一个 ,git 文件夹，文件夹内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r-- 1 dell 197121  16 6月  23 23:02 COMMIT_EDITMSG</span><br><span class="line">-rw-r--r-- 1 dell 197121 180 6月  22 22:29 config</span><br><span class="line">-rw-r--r-- 1 dell 197121  73 6月  22 22:24 description</span><br><span class="line">-rw-r--r-- 1 dell 197121 216 6月  25 14:55 gitk.cache</span><br><span class="line">-rw-r--r-- 1 dell 197121  21 6月  24 23:07 HEAD</span><br><span class="line">drwxr-xr-x 1 dell 197121   0 6月  22 22:24 hooks&#x2F;</span><br><span class="line">-rw-r--r-- 1 dell 197121 217 6月  24 23:08 index</span><br><span class="line">drwxr-xr-x 1 dell 197121   0 6月  22 22:24 info&#x2F;</span><br><span class="line">drwxr-xr-x 1 dell 197121   0 6月  22 22:41 logs&#x2F;</span><br><span class="line">drwxr-xr-x 1 dell 197121   0 6月  23 23:02 objects&#x2F;</span><br><span class="line">-rw-r--r-- 1 dell 197121  41 6月  23 22:59 ORIG_HEAD</span><br><span class="line">drwxr-xr-x 1 dell 197121   0 6月  22 22:24 refs&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>每个文件的含义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">HEAD: 文件，保存了当前正在工作的分支，切换分支时内容会改变，内容为：ref: refs&#x2F;heads&#x2F;master</span><br><span class="line">config: 文件，保存了与本地仓库相关的配置信息，内容如下：</span><br><span class="line">	[core]</span><br><span class="line">        repositoryformatversion &#x3D; 0</span><br><span class="line">        filemode &#x3D; false</span><br><span class="line">        bare &#x3D; false</span><br><span class="line">        logallrefupdates &#x3D; true</span><br><span class="line">        symlinks &#x3D; false</span><br><span class="line">        ignorecase &#x3D; true</span><br><span class="line">	[user]</span><br><span class="line">        name &#x3D; &#39;wz&#39;</span><br><span class="line">        email &#x3D; &#39;wyzane1207@163.com&#39;</span><br><span class="line">refs: 目录，包含 heads(保存分支) 和 tags(保存标签)</span><br><span class="line">	refs&#x2F;heads&#x2F;master 中保存的是一个 commit 的 id，指向一个 commit</span><br><span class="line">objects: 目录，保存了 tree、glob 等对象的信息</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="git对象之间的关系"><a href="#git对象之间的关系" class="headerlink" title="git对象之间的关系"></a>git对象之间的关系</h2><p>commit、tree、blob三者之间的关系如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">一个commit对应一个tree，这个tree表示当时commit后，项目的整个目录结构，这个tree下面有可以包含多个子tree(目录)和blob(文件)。</span><br><span class="line">子tree会对应项目中的一个目录，子tree中也包含很多blob和子tree。</span><br><span class="line">一个blob对应一个文件，只要文件内容相同，就是同一个blob对象。</span><br></pre></td></tr></table></figure>
+
+<p>执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">λ git cat-file -p f9c5d761a  查看f9c5d761a的内容</span><br><span class="line">tree b4f5e1498a011eb1267852ff76ccbad35c08aac4</span><br><span class="line">parent febad01c1b094e73047b204fd31b827cb2a86ff2</span><br><span class="line">author wyzane &lt;wyzane1207@163.com&gt; 1593072058 +0800</span><br><span class="line">committer wyzane &lt;wyzane1207@163.com&gt; 1593072058 +0800</span><br><span class="line"></span><br><span class="line">添加用户页面</span><br><span class="line"></span><br><span class="line">F:\GitTest\demo1 (master -&gt; origin)</span><br><span class="line">λ git cat-file -t f9c5d761a  查看f9c5d761a的类型</span><br><span class="line">commit</span><br><span class="line"></span><br><span class="line">F:\GitTest\demo1 (master -&gt; origin)</span><br><span class="line">λ git cat-file -p b4f5e1498a011   查看f9c5d761a下tree对象b4f5e1498a011的内容</span><br><span class="line">100644 blob fd98613334e79fb5a12f537462627af2b7efdacd    index.html</span><br><span class="line">100644 blob 9b562d265a03e923b86bfc3b9b8418463f4f1c70    index02.html</span><br><span class="line">100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    readme.md</span><br><span class="line">040000 tree fa6ab77bfb3a6f0cbecd74ef7e98e8624ee4c099    test</span><br><span class="line"></span><br><span class="line">F:\GitTest\demo1 (master -&gt; origin)</span><br><span class="line">λ git cat-file -t b4f5e1498a011  查看b4f5e1498a011的类型</span><br><span class="line">tree</span><br><span class="line"></span><br><span class="line">F:\GitTest\demo1 (master -&gt; origin)</span><br><span class="line">λ git cat-file -p fa6ab77bfb3</span><br><span class="line">100644 blob 41d4171c5880f9cdab07eadc8564d04e7ee1e055    user.html</span><br><span class="line"></span><br><span class="line">从上面的打印信息中可以看出，一个commit对应一个tree，这个tree下面可以有blob对象和子tree对象，子tree下面还有blob对象。</span><br><span class="line"></span><br><span class="line">执行 git cat-file -p fd98613334e79fb，显示出 blob 对象的内容如下：</span><br><span class="line">&lt;h1&gt;git test&lt;h1&#x2F;&gt;</span><br><span class="line">&lt;h1&gt;git test&lt;h1&#x2F;&gt;</span><br><span class="line">&lt;h1&gt;git test&lt;h1&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="分离头指针"><a href="#分离头指针" class="headerlink" title="分离头指针"></a>分离头指针</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分离头指针是指，做的变更不是基于一个分支。</span><br><span class="line">HEAD 可以指向一个分支（最终还是指向一个commit），也可以指向一个commit，当使用 git checkout commitID 时，HEAD会切换到一个特定的commit。此时我们做的任何变更不是基于分支的，而是基于这个commit，当切换回其他分支时，在commit上做的变更就会被git丢弃掉。</span><br><span class="line">当我们需要做一些实验性的变更时，可以这样做。</span><br></pre></td></tr></table></figure>
+
+<p>正常情况下，HEAD会指向一个分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">λ git log</span><br><span class="line">commit f9c5d761a8922dd69345da752ab135881418bc51 (HEAD -&gt; master)</span><br><span class="line">Author: wyzane &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Thu Jun 25 16:00:58 2020 +0800</span><br><span class="line"></span><br><span class="line">    添加用户页面</span><br><span class="line"></span><br><span class="line">commit febad01c1b094e73047b204fd31b827cb2a86ff2</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 23:02:37 2020 +0800</span><br><span class="line"></span><br><span class="line">    修改文件名</span><br><span class="line"></span><br><span class="line">commit 683cbacc9aae84b55bf03a37217f09b23ec71b5a</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 22:50:22 2020 +0800</span><br><span class="line"></span><br><span class="line">    update</span><br><span class="line"></span><br><span class="line">commit 9548167eda1557775206f988e129625c8ebc664e (temp)</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 22:41:51 2020 +0800</span><br><span class="line"></span><br><span class="line">    add index</span><br></pre></td></tr></table></figure>
+
+<p>我们执行 git checkout 9548 febad01c1b 后，HEAD会指向一个 commit：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">λ git checkout febad01c1b</span><br><span class="line">Note: checking out &#39;febad01c1b&#39;.</span><br><span class="line"></span><br><span class="line">You are in &#39;detached HEAD&#39; state. You can look around, make experimental</span><br><span class="line">changes and commit them, and you can discard any commits you make in this</span><br><span class="line">state without impacting any branches by performing another checkout.</span><br><span class="line"></span><br><span class="line">If you want to create a new branch to retain commits you create, you may</span><br><span class="line">do so (now or later) by using -b with the checkout command again. Example:</span><br><span class="line"></span><br><span class="line">  git checkout -b &lt;new-branch-name&gt;</span><br><span class="line"></span><br><span class="line">HEAD is now at febad01 修改文件名</span><br><span class="line"></span><br><span class="line">λ git log</span><br><span class="line">commit febad01c1b094e73047b204fd31b827cb2a86ff2 (HEAD)</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 23:02:37 2020 +0800</span><br><span class="line"></span><br><span class="line">    修改文件名</span><br><span class="line"></span><br><span class="line">commit 683cbacc9aae84b55bf03a37217f09b23ec71b5a</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 22:50:22 2020 +0800</span><br><span class="line"></span><br><span class="line">    update</span><br><span class="line"></span><br><span class="line">commit 9548167eda1557775206f988e129625c8ebc664e (temp)</span><br><span class="line">Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">Date:   Tue Jun 23 22:41:51 2020 +0800</span><br><span class="line"></span><br><span class="line">    add index</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改commit的msg"><a href="#修改commit的msg" class="headerlink" title="修改commit的msg"></a>修改commit的msg</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修改最近一次 commit 的 msg 使用如下命令：</span><br><span class="line">git commit --amend</span><br><span class="line"></span><br><span class="line">如何修改其他 commit 的 msg</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改其他-commit-的-msg"><a href="#修改其他-commit-的-msg" class="headerlink" title="修改其他 commit 的 msg"></a>修改其他 commit 的 msg</h2><p>对其他 commit 的 msg 修改时，需要用到 git rebase 命令。<br>首先我们要确定待修改commit的上一个commitID，以这个commit为基础。然后执行 git rebase -i 上一个commitID，会进入一个编辑页面，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">pick f5b4cb5 修改文件名</span><br><span class="line">pick a0b86da 添加用户页面2</span><br><span class="line"></span><br><span class="line"># Rebase 683cbac..a0b86da onto 683cbac (2 commands)</span><br><span class="line">#</span><br><span class="line"># Commands:</span><br><span class="line"># p, pick &lt;commit&gt; &#x3D; use commit</span><br><span class="line"># r, reword &lt;commit&gt; &#x3D; use commit, but edit the commit message</span><br><span class="line"># e, edit &lt;commit&gt; &#x3D; use commit, but stop for amending</span><br><span class="line"># s, squash &lt;commit&gt; &#x3D; use commit, but meld into previous commit</span><br><span class="line"># f, fixup &lt;commit&gt; &#x3D; like &quot;squash&quot;, but discard this commit&#39;s log message</span><br><span class="line"># x, exec &lt;command&gt; &#x3D; run command (the rest of the line) using shell</span><br><span class="line"># b, break &#x3D; stop here (continue rebase later with &#39;git rebase --continue&#39;)</span><br><span class="line"># d, drop &lt;commit&gt; &#x3D; remove commit</span><br><span class="line"># l, label &lt;label&gt; &#x3D; label current HEAD with a name</span><br><span class="line"># t, reset &lt;label&gt; &#x3D; reset HEAD to a label</span><br><span class="line"># m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [# &lt;oneline&gt;]</span><br><span class="line"># .       create a merge commit using the original merge commit&#39;s</span><br><span class="line"># .       message (or the oneline, if no original merge commit was</span><br><span class="line"># .       specified). Use -c &lt;commit&gt; to reword the commit message.</span><br><span class="line">#</span><br><span class="line"># These lines can be re-ordered; they are executed from top to bottom.</span><br><span class="line">#</span><br><span class="line"># If you remove a line here THAT COMMIT WILL BE LOST.</span><br><span class="line">#</span><br><span class="line"># However, if you remove everything, the rebase will be aborted.</span><br><span class="line">#</span><br><span class="line"># Note that empty commits are commented out</span><br></pre></td></tr></table></figure>
+
+<p>上面的文件中，挑选出了两个 commit，然后下面有选择执行的命令。修改 commit 时，我们可以选择 commit message 命令，即把第一行的 pick 改成 reword，然后保存。保存后又会进入一个编辑页面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">修改文件名</span><br><span class="line"></span><br><span class="line"># Please enter the commit message for your changes. Lines starting</span><br><span class="line"># with &#39;#&#39; will be ignored, and an empty message aborts the commit.</span><br><span class="line">#</span><br><span class="line"># Author:    wz &lt;wyzane1207@163.com&gt;</span><br><span class="line"># Date:      Tue Jun 23 23:02:37 2020 +0800</span><br><span class="line">#</span><br><span class="line"># interactive rebase in progress; onto 683cbac</span><br><span class="line"># Last command done (1 command done):</span><br><span class="line">#    reword f5b4cb5 修改文件名2</span><br><span class="line"># Next command to do (1 remaining command):</span><br><span class="line">#    pick a0b86da 添加用户页面2</span><br><span class="line"># You are currently editing a commit while rebasing branch &#39;master&#39; on &#39;683cbac&#39;.</span><br><span class="line">#</span><br><span class="line"># Changes to be committed:</span><br><span class="line">#       renamed:    index2.html -&gt; index02.html</span><br></pre></td></tr></table></figure>
+
+<p>这时我们修改完 msg 后保存即可。</p>
+<h2 id="合并commit"><a href="#合并commit" class="headerlink" title="合并commit"></a>合并commit</h2><p>对其他 commit 的 msg 修改时，需要用到 git rebase 命令。<br>首先我们要确定待修改commit的上一个commitID，以这个commit为基础。然后执行 git rebase -i 上一个commitID，会进入一个编辑页面，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pick 9548167 add index</span><br><span class="line">pick 683cbac update</span><br><span class="line">pick 4a558f9 修改文件名2</span><br><span class="line">pick 8d1455b 添加用户页面2</span><br><span class="line"></span><br><span class="line"># Rebase 28f3903..8d1455b onto 28f3903 (4 commands)</span><br><span class="line">#</span><br><span class="line"># Commands:</span><br><span class="line"># p, pick &lt;commit&gt; &#x3D; use commit</span><br><span class="line"># r, reword &lt;commit&gt; &#x3D; use commit, but edit the commit message</span><br><span class="line"># e, edit &lt;commit&gt; &#x3D; use commit, but stop for amending</span><br><span class="line"># s, squash &lt;commit&gt; &#x3D; use commit, but meld into previous commit</span><br><span class="line"># f, fixup &lt;commit&gt; &#x3D; like &quot;squash&quot;, but discard this commit&#39;s log message</span><br><span class="line"># x, exec &lt;command&gt; &#x3D; run command (the rest of the line) using shell</span><br><span class="line"># b, break &#x3D; stop here (continue rebase later with &#39;git rebase --continue&#39;)</span><br><span class="line"># d, drop &lt;commit&gt; &#x3D; remove commit</span><br><span class="line"># l, label &lt;label&gt; &#x3D; label current HEAD with a name</span><br><span class="line"># t, reset &lt;label&gt; &#x3D; reset HEAD to a label</span><br><span class="line"># m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [# &lt;oneline&gt;]</span><br><span class="line"># .       create a merge commit using the original merge commit&#39;s</span><br><span class="line"># .       message (or the oneline, if no original merge commit was</span><br><span class="line"># .       specified). Use -c &lt;commit&gt; to reword the commit message.</span><br><span class="line">#</span><br><span class="line"># These lines can be re-ordered; they are executed from top to bottom.</span><br><span class="line">#</span><br><span class="line"># If you remove a line here THAT COMMIT WILL BE LOST.</span><br><span class="line">#</span><br><span class="line"># However, if you remove everything, the rebase will be aborted.</span><br><span class="line">#</span><br><span class="line"># Note that empty commits are commented out</span><br></pre></td></tr></table></figure>
+
+<p>我们可以把 683cbac、4a558f9 这两个 commit 合并到第一个 commit 中。根据文件中的说明，我们可以使用 squash（或者简写成s） 命令。修改文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pick 9548167 add index</span><br><span class="line">squash 683cbac update</span><br><span class="line">squash 4a558f9 修改文件名2</span><br><span class="line">pick 8d1455b 添加用户页面2</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>然后保存，会出现如下文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># This is a combination of 3 commits.</span><br><span class="line"># This is the 1st commit message:</span><br><span class="line"></span><br><span class="line">add index</span><br><span class="line"></span><br><span class="line"># This is the commit message #2:</span><br><span class="line"></span><br><span class="line">update</span><br><span class="line"></span><br><span class="line"># This is the commit message #3:</span><br><span class="line"></span><br><span class="line">修改文件名2</span><br><span class="line"></span><br><span class="line"># Please enter the commit message for your changes. Lines starting</span><br><span class="line"># with &#39;#&#39; will be ignored, and an empty message aborts the commit.</span><br><span class="line">#</span><br><span class="line"># Author:    wz &lt;wyzane1207@163.com&gt;</span><br><span class="line"># Date:      Tue Jun 23 22:41:51 2020 +0800</span><br><span class="line">#</span><br><span class="line"># interactive rebase in progress; onto 28f3903</span><br><span class="line"># Last commands done (3 commands done):</span><br><span class="line">#    squash 683cbac update</span><br><span class="line">#    squash 4a558f9 修改文件名2</span><br><span class="line"># Next command to do (1 remaining command):</span><br><span class="line">#    pick 8d1455b 添加用户页面2</span><br><span class="line"># You are currently rebasing branch &#39;master&#39; on &#39;28f3903&#39;.</span><br><span class="line">#</span><br><span class="line"># Changes to be committed:</span><br><span class="line">#       new file:   index.html</span><br><span class="line">#       new file:   index02.html</span><br></pre></td></tr></table></figure>
+
+<p>我们可以在第一行下面写合并 commit 的注释，写完保存即可。执行 git log –graph，可以看到下面的 commit 记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">λ git log --graph</span><br><span class="line">* commit 04c862efc7b757b2038144ab24b2dc913151213c (HEAD -&gt; master)</span><br><span class="line">| Author: wyzane &lt;wyzane1207@163.com&gt;</span><br><span class="line">| Date:   Thu Jun 25 16:00:58 2020 +0800</span><br><span class="line">|</span><br><span class="line">|     添加用户页面2</span><br><span class="line">|</span><br><span class="line">* commit 2343bc35bef0f096b3768403fbceeb587e8ddfcf</span><br><span class="line">| Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">| Date:   Tue Jun 23 22:41:51 2020 +0800</span><br><span class="line">|</span><br><span class="line">|     合并commit测试</span><br><span class="line">|</span><br><span class="line">|     add index</span><br><span class="line">|</span><br><span class="line">|     update</span><br><span class="line">|</span><br><span class="line">|     修改文件名2</span><br><span class="line">|</span><br><span class="line">* commit 28f3903644aea0102c9e7b7a6789b5990a45db50</span><br><span class="line">  Author: wz &lt;wyzane1207@163.com&gt;</span><br><span class="line">  Date:   Mon Jun 22 22:41:14 2020 +0800</span><br><span class="line"></span><br><span class="line">      reaeme.md</span><br></pre></td></tr></table></figure>
+
+<p>可以看到， 2343bc35bef0f096b3768403fbceeb587e8ddfcf 这个就是新生成的commit。</p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="git-check"><a href="#git-check" class="headerlink" title="git check"></a>git check</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名: 切换到分支</span><br><span class="line">git checkout -b 分支名: 创建新分支并切换到新分支</span><br><span class="line">git checkout -b 新分支名 基于分支名或者commitID: 基于某个分支或者commit创建一个分支并切换到该分支</span><br></pre></td></tr></table></figure>
+
+<h2 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch: 查看分支列表</span><br><span class="line">git branch -d 分支名: 删除某个分支 </span><br><span class="line">git branch -D 分支名: 强制删除某个分支</span><br></pre></td></tr></table></figure>
+
+<h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git diff 用户比较两个 commit 的区别</span><br><span class="line">git diff commitID1 commitID2: 比较两个commit</span><br><span class="line">git diff HEAD HEAD~1: 比较当前commit与上一次commit的区别</span><br><span class="line">	git diff HEAD HEAD^^ 与 git diff HEAD HEAD~2 一样</span><br></pre></td></tr></table></figure>
+
+<h2 id="git-cat-file"><a href="#git-cat-file" class="headerlink" title="git cat-file"></a>git cat-file</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git cat-file -t 9b562d265a03e923b86bfc3b9b8418463f4f1c70: 查看hash值的类型（这个是blob类型，即文件对象）</span><br><span class="line">git cat-file -p 9b562d265a03e923b86bfc3b9b8418463f4f1c70: 查看hash值的内容</span><br><span class="line">	这个 blog 类型的内容如下：</span><br><span class="line">		&lt;h1&gt;git test&lt;h1&#x2F;&gt;</span><br><span class="line">        &lt;h1&gt;git test&lt;h1&#x2F;&gt;</span><br><span class="line">git cat-file -t 239ec593c6a2192e76c005435f748b2ad28be832：查看hash值的类型（这个是tree类型，即目录）</span><br><span class="line">git cat-file -p 239ec593c6a2192e76c005435f748b2ad28be832: 查看输出内容，输出如下（内容是一个blob对象）：</span><br><span class="line">		100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    readme.md</span><br></pre></td></tr></table></figure>
+
+
+
+<p>整理中 …..</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Git/" rel="tag"># Git</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2020/06/21/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E6%8E%A5%E5%8F%A3%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%B9%82%E7%AD%89%E6%80%A7/" rel="prev" title="项目开发中接口如何保证幂等性">
+      <i class="fa fa-chevron-left"></i> 项目开发中接口如何保证幂等性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2020/06/27/svn%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" rel="next" title="svn的简单使用">
+      svn的简单使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础"><span class="nav-number">1.</span> <span class="nav-text">Git基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git最小配置"><span class="nav-number">1.1.</span> <span class="nav-text">git最小配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建仓库"><span class="nav-number">1.2.</span> <span class="nav-text">创建仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#把已有项目代码纳入版本管理"><span class="nav-number">1.2.1.</span> <span class="nav-text">把已有项目代码纳入版本管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建一个git仓库"><span class="nav-number">1.2.2.</span> <span class="nav-text">新建一个git仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加一个文件"><span class="nav-number">1.3.</span> <span class="nav-text">添加一个文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#往仓库里添加文件"><span class="nav-number">1.4.</span> <span class="nav-text">往仓库里添加文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件重命名"><span class="nav-number">1.5.</span> <span class="nav-text">文件重命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看版本历史"><span class="nav-number">1.6.</span> <span class="nav-text">查看版本历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git目录介绍"><span class="nav-number">1.7.</span> <span class="nav-text">.git目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git对象之间的关系"><span class="nav-number">1.8.</span> <span class="nav-text">git对象之间的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分离头指针"><span class="nav-number">1.9.</span> <span class="nav-text">分离头指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改commit的msg"><span class="nav-number">1.10.</span> <span class="nav-text">修改commit的msg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改其他-commit-的-msg"><span class="nav-number">1.11.</span> <span class="nav-text">修改其他 commit 的 msg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并commit"><span class="nav-number">1.12.</span> <span class="nav-text">合并commit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-check"><span class="nav-number">2.1.</span> <span class="nav-text">git check</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-branch"><span class="nav-number">2.2.</span> <span class="nav-text">git branch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-diff"><span class="nav-number">2.3.</span> <span class="nav-text">git diff</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-cat-file"><span class="nav-number">2.4.</span> <span class="nav-text">git cat-file</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wyzane"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Wyzane</p>
+  <div class="site-description" itemprop="description">生活如诗，岁月如歌，等我们来谱曲填词！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wyzane" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wyzane" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://wyzane1207@outlook.com/" title="E-Mail → https:&#x2F;&#x2F;wyzane1207@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.gitee.com/" title="https:&#x2F;&#x2F;www.gitee.com" rel="noopener" target="_blank">码云</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wyzane</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">287k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:21</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
