@@ -566,7 +566,7 @@
 <h1 id="yield-from"><a href="#yield-from" class="headerlink" title="yield from"></a>yield from</h1><p>一个含有 yield from 的方法也是一个生成器，与 yield 不同的是，yield from 后面如果跟一个生成器，那么可以直接调用这个生成器，而不再需要 next() 函数。yield from 后面也可一跟一个可迭代对象，此时相比于 for 循环加 yield 输出数据要方便。例子如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test01</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""yield from 后面可以跟一个可迭代对象</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"ok"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test02</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""yield from 后面跟一个生成器</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    print(<span class="string">"=====start====="</span>)</span><br><span class="line">    ret = <span class="keyword">yield</span> <span class="keyword">from</span> test01()</span><br><span class="line">    <span class="comment"># 还可以获取子生成器的值</span></span><br><span class="line">    print(<span class="string">"=====ret:"</span>, ret)</span><br><span class="line">    </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    t = test02()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        print(<span class="string">"=====t1:"</span>, next(t))</span><br><span class="line">        print(<span class="string">"=====t2:"</span>, next(t))</span><br><span class="line">        print(<span class="string">"=====t3:"</span>, next(t))</span><br><span class="line">        print(<span class="string">"=====t4:"</span>, next(t))</span><br><span class="line">        print(<span class="string">"=====t5:"</span>, next(t))</span><br><span class="line">        print(<span class="string">"=====t6:"</span>, next(t))</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
-<p>上面到妈的输出结果为：</p>
+<p>上面代码的输出结果为：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;start&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;t1: 1</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;t2: 2</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;t3: 3</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;t4: 4</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;t5: 5</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;ret: ok</span><br></pre></td></tr></table></figure>
 
 <p>可以看出，生成器 test02() 里面嵌套了一个生成器 test01()。</p>
@@ -3668,6 +3668,76 @@
 <p>以上就是本文介绍的 LangChain 的一些基本用法。</p>
 <p>LangChain 官方文档：<a href="https://python.langchain.com/docs/get_started/introduction" target="_blank" rel="noopener">https://python.langchain.com/docs/get_started/introduction</a></p>
 <p>LangChain GitHub仓库：<a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener">https://github.com/langchain-ai/langchain</a></p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Ollama的介绍和使用</title>
+    <url>/blog/2024/02/25/Ollama%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>Ollama是一个开源工具，它能帮助我们在本地搭建和运行Llama2、Mistral、Gemma等开源LLM服务，方便我们构建自己的 LLM 应用。</p>
+<p>今天介绍下它的使用。</p>
+<a id="more"></a>
+
+<h1 id="Ollama的安装"><a href="#Ollama的安装" class="headerlink" title="Ollama的安装"></a>Ollama的安装</h1><p>Linux环境下，Ollama的安装方式为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;ollama.com&#x2F;install.sh | sh</span><br></pre></td></tr></table></figure>
+
+<p>Mac环境下，去官网下载安装包进行安装，下载地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;ollama.com&#x2F;download&#x2F;mac</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，我们可以执行 ollama 命令查看到如下信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Usage:</span><br><span class="line">  ollama [flags]</span><br><span class="line">  ollama [command]</span><br><span class="line"></span><br><span class="line">Available Commands:</span><br><span class="line">  serve       Start ollama</span><br><span class="line">  create      Create a model from a Modelfile</span><br><span class="line">  show        Show information for a model</span><br><span class="line">  run         Run a model</span><br><span class="line">  pull        Pull a model from a registry</span><br><span class="line">  push        Push a model to a registry</span><br><span class="line">  list        List models</span><br><span class="line">  cp          Copy a model</span><br><span class="line">  rm          Remove a model</span><br><span class="line">  help        Help about any command</span><br><span class="line"></span><br><span class="line">Flags:</span><br><span class="line">  -h, --help      help for ollama</span><br><span class="line">  -v, --version   Show version information</span><br><span class="line"></span><br><span class="line">Use &quot;ollama [command] --help&quot; for more information about a command.</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ollama的使用"><a href="#Ollama的使用" class="headerlink" title="Ollama的使用"></a>Ollama的使用</h1><p>通过查看 Ollama 的命令，可以发现它很像 Docker。</p>
+<p>需要拉取模型到本地时，我们可以使用 ollama pull 命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ollama pull gemma</span><br><span class="line">ollama pull llama2</span><br><span class="line">ollama pull mistral</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>查看本地已存在的模型时，可以运行：ollama list</p>
+<p>在本地运行一个模型时，可以执行：ollama run gemma</p>
+<p>运行模型后，会出现这样的对话界面：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">zanwang@zan ~ % ollama run gemma</span><br><span class="line">&gt;&gt;&gt; hello</span><br><span class="line">Hello, hello! 👋</span><br><span class="line">It&#39;s nice to hear from you. What would you like to talk about today?</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; who are you</span><br><span class="line">I am an AI language model, designed to provide you with information and </span><br><span class="line">engage in conversation on various topics. I am still under development, </span><br><span class="line">but I am constantly learning new things.</span><br><span class="line">Would you like me to tell you more about myself or would you like to ask </span><br><span class="line">me a question?</span><br></pre></td></tr></table></figure>
+
+<p>我们可以输入问题，然后等待模型的回答。</p>
+<p>我们还可以使用 ollama create 命令来创建一个 LLM.</p>
+<p>首先要编写一个 Modefile 文件，文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM qwen</span><br><span class="line"></span><br><span class="line"># set the temperature to 1 [higher is more creative, lower is more coherent]</span><br><span class="line">PARAMETER temperature 1</span><br><span class="line">PARAMETER max_tokens 10</span><br><span class="line"></span><br><span class="line"># set the system message</span><br><span class="line">SYSTEM &quot;&quot;&quot;</span><br><span class="line">You are Tracy, a execllent teacher. Answer as Tracy, the assistant, only.</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>我上面基于通义千问qwen模型创建了一个LLM，设置它的 temperature 为1。</p>
+<p>执行以下命令创建该模型：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ollama create tracy(模型名称) -f .&#x2F;Modefile</span><br></pre></td></tr></table></figure>
+
+<p>创建完成后，我们可以执行 ollama list 查看模型列表：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">zanwang@zan ollamaproject % ollama list</span><br><span class="line">NAME                 	ID          	SIZE  	MODIFIED      </span><br><span class="line">codellama:latest     	8fdf8f752f6e	3.8 GB	47 hours ago 	</span><br><span class="line">gemma:latest         	430ed3535049	5.2 GB	47 hours ago 	</span><br><span class="line">llama2:latest        	78e26419b446	3.8 GB	2 days ago   	</span><br><span class="line">llama2-chinese:latest	cee11d703eee	3.8 GB	47 hours ago 	</span><br><span class="line">mistral:latest       	61e88e884507	4.1 GB	47 hours ago 	</span><br><span class="line">qwen:latest          	d53d04290064	2.3 GB	46 hours ago 	</span><br><span class="line">tracy:latest         	e941b7cd9ad8	2.3 GB	9 seconds ago</span><br></pre></td></tr></table></figure>
+
+<p>然后我们就可以使用它了：ollama run tracy</p>
+<h1 id="Ollama-API的使用"><a href="#Ollama-API的使用" class="headerlink" title="Ollama API的使用"></a>Ollama API的使用</h1><p>除了直接聊天，ollama 还提供了 REST API 供我们使用，我们可以像调用 OpenAI 接口那样调用 ollama 的接口。启动 ollama 服务以后，我们可以直接调用接口获取 LLM 的响应，</p>
+<p>我们可以调用聊天接口：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">zanwang@zan blog % curl http:&#x2F;&#x2F;localhost:11434&#x2F;api&#x2F;chat -d &#39;&#123;</span><br><span class="line">  &quot;model&quot;: &quot;qwen&quot;,</span><br><span class="line">  &quot;messages&quot;: [</span><br><span class="line">    &#123; &quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;你好，你是谁？&quot; &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+<p>api/chat 接口可以传入以下参数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">model: 模型名称</span><br><span class="line">messages: 消息内容</span><br><span class="line">format: 响应数据的格式，默认是json</span><br><span class="line">template: prompt的模板</span><br><span class="line">stream: 是否流式输出, 默认true</span><br></pre></td></tr></table></figure>
+
+
+
+<p>也可以调用 generate 接口：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;localhost:11434&#x2F;api&#x2F;generate -d &#39;&#123;</span><br><span class="line">  &quot;model&quot;: &quot;llama2-chinese&quot;,</span><br><span class="line">  &quot;prompt&quot;:&quot;你好，你是谁&quot;</span><br><span class="line">&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>ollama rest api文档：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;ollama&#x2F;ollama&#x2F;blob&#x2F;main&#x2F;docs&#x2F;api.md</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ollama-UI的使用"><a href="#Ollama-UI的使用" class="headerlink" title="Ollama UI的使用"></a>Ollama UI的使用</h1><p>使用 Ollama 创建好模型后，我们离创建一个聊天应用就差web界面了，下面是几个基于 ollama 的chat ui，有请兴趣的同学可以试一下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chatbot ollama：https:&#x2F;&#x2F;github.com&#x2F;ivanfioravanti&#x2F;chatbot-ollama</span><br><span class="line">open webui：https:&#x2F;&#x2F;github.com&#x2F;open-webui&#x2F;open-webui</span><br><span class="line">ollama ui：https:&#x2F;&#x2F;github.com&#x2F;ollama-webui&#x2F;ollama-webui-lite</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>参考链接：</p>
+<p>Ollama官网：<a href="https://ollama.com/" target="_blank" rel="noopener">https://ollama.com/</a></p>
+<p>Ollama Github：<a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">https://github.com/ollama/ollama</a></p>
 ]]></content>
       <categories>
         <category>Python</category>

@@ -20,20 +20,19 @@
     var CONFIG = {"hostname":"wyzane.gitee.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="redis中的发布&#x2F;订阅模型是一种消息通信模式，今天聊一下在python中实现简单的发布订阅功能。">
+  <meta name="description" content="Ollama是一个开源工具，它能帮助我们在本地搭建和运行Llama2、Mistral、Gemma等开源LLM服务，方便我们构建自己的 LLM 应用。 今天介绍下它的使用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python开发之使用Redis实现发布订阅功能">
-<meta property="og:url" content="http://wyzane.gitee.io/blog/2020/05/30/python%E5%BC%80%E5%8F%91%E4%B9%8B%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:title" content="Ollama的介绍和使用">
+<meta property="og:url" content="http://wyzane.gitee.io/blog/2024/02/25/Ollama%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Wyzane&#39;s Blog">
-<meta property="og:description" content="redis中的发布&#x2F;订阅模型是一种消息通信模式，今天聊一下在python中实现简单的发布订阅功能。">
+<meta property="og:description" content="Ollama是一个开源工具，它能帮助我们在本地搭建和运行Llama2、Mistral、Gemma等开源LLM服务，方便我们构建自己的 LLM 应用。 今天介绍下它的使用。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-30T04:17:20.000Z">
-<meta property="article:modified_time" content="2024-02-02T06:20:48.531Z">
+<meta property="article:published_time" content="2024-02-25T02:32:44.000Z">
+<meta property="article:modified_time" content="2024-02-25T03:03:05.940Z">
 <meta property="article:author" content="Wyzane">
-<meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://wyzane.gitee.io/blog/2020/05/30/python%E5%BC%80%E5%8F%91%E4%B9%8B%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E5%8A%9F%E8%83%BD/">
+<link rel="canonical" href="http://wyzane.gitee.io/blog/2024/02/25/Ollama%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">
 
 
 <script id="page-configurations">
@@ -46,7 +45,7 @@
   };
 </script>
 
-  <title>python开发之使用Redis实现发布订阅功能 | Wyzane's Blog</title>
+  <title>Ollama的介绍和使用 | Wyzane's Blog</title>
   
 
 
@@ -201,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://wyzane.gitee.io/blog/2020/05/30/python%E5%BC%80%E5%8F%91%E4%B9%8B%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E5%8A%9F%E8%83%BD/">
+    <link itemprop="mainEntityOfPage" href="http://wyzane.gitee.io/blog/2024/02/25/Ollama%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.jpg">
@@ -214,7 +213,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          python开发之使用Redis实现发布订阅功能
+          Ollama的介绍和使用
         </h1>
 
         <div class="post-meta">
@@ -223,16 +222,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-05-30 12:17:20" itemprop="dateCreated datePublished" datetime="2020-05-30T12:17:20+08:00">2020-05-30</time>
+              <time title="创建时间：2024-02-25 10:32:44 / 修改时间：11:03:05" itemprop="dateCreated datePublished" datetime="2024-02-25T10:32:44+08:00">2024-02-25</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-02-02 14:20:48" itemprop="dateModified" datetime="2024-02-02T14:20:48+08:00">2024-02-02</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -249,14 +242,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -268,30 +261,68 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>redis中的发布/订阅模型是一种消息通信模式，今天聊一下在python中实现简单的发布订阅功能。</p>
+        <p>Ollama是一个开源工具，它能帮助我们在本地搭建和运行Llama2、Mistral、Gemma等开源LLM服务，方便我们构建自己的 LLM 应用。</p>
+<p>今天介绍下它的使用。</p>
 <a id="more"></a>
 
-<h1 id="实现方式一"><a href="#实现方式一" class="headerlink" title="实现方式一"></a>实现方式一</h1><p>redis_helper.py：封装发布订阅方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisHelper</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.__conn = redis.Redis(host=<span class="string">"localhost"</span>)</span><br><span class="line">        <span class="comment"># 订阅频道</span></span><br><span class="line">        self.chan_sub = <span class="string">"fm104.5"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">public</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        在指定频道上发布消息</span></span><br><span class="line"><span class="string">        :param msg:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># publish(): 在指定频道上发布消息，返回订阅者的数量</span></span><br><span class="line">        self.__conn.publish(self.chan_sub, msg)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 返回发布订阅对象，通过这个对象你能1）订阅频道 2）监听频道中的消息</span></span><br><span class="line">        pub = self.__conn.pubsub()</span><br><span class="line">        <span class="comment"># 订阅频道，与publish()中指定的频道一样。消息会发布到这个频道中</span></span><br><span class="line">        pub.subscribe(self.chan_sub)</span><br><span class="line">        ret = pub.parse_response()  <span class="comment"># [b'subscribe', b'fm86', 1]</span></span><br><span class="line">        print(<span class="string">"ret:%s"</span> % ret)</span><br><span class="line">        <span class="keyword">return</span> pub</span><br></pre></td></tr></table></figure>
+<h1 id="Ollama的安装"><a href="#Ollama的安装" class="headerlink" title="Ollama的安装"></a>Ollama的安装</h1><p>Linux环境下，Ollama的安装方式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;ollama.com&#x2F;install.sh | sh</span><br></pre></td></tr></table></figure>
+
+<p>Mac环境下，去官网下载安装包进行安装，下载地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;ollama.com&#x2F;download&#x2F;mac</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，我们可以执行 ollama 命令查看到如下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br><span class="line">  ollama [flags]</span><br><span class="line">  ollama [command]</span><br><span class="line"></span><br><span class="line">Available Commands:</span><br><span class="line">  serve       Start ollama</span><br><span class="line">  create      Create a model from a Modelfile</span><br><span class="line">  show        Show information for a model</span><br><span class="line">  run         Run a model</span><br><span class="line">  pull        Pull a model from a registry</span><br><span class="line">  push        Push a model to a registry</span><br><span class="line">  list        List models</span><br><span class="line">  cp          Copy a model</span><br><span class="line">  rm          Remove a model</span><br><span class="line">  help        Help about any command</span><br><span class="line"></span><br><span class="line">Flags:</span><br><span class="line">  -h, --help      help for ollama</span><br><span class="line">  -v, --version   Show version information</span><br><span class="line"></span><br><span class="line">Use &quot;ollama [command] --help&quot; for more information about a command.</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ollama的使用"><a href="#Ollama的使用" class="headerlink" title="Ollama的使用"></a>Ollama的使用</h1><p>通过查看 Ollama 的命令，可以发现它很像 Docker。</p>
+<p>需要拉取模型到本地时，我们可以使用 ollama pull 命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ollama pull gemma</span><br><span class="line">ollama pull llama2</span><br><span class="line">ollama pull mistral</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>查看本地已存在的模型时，可以运行：ollama list</p>
+<p>在本地运行一个模型时，可以执行：ollama run gemma</p>
+<p>运行模型后，会出现这样的对话界面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zanwang@zan ~ % ollama run gemma</span><br><span class="line">&gt;&gt;&gt; hello</span><br><span class="line">Hello, hello! 👋</span><br><span class="line">It&#39;s nice to hear from you. What would you like to talk about today?</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; who are you</span><br><span class="line">I am an AI language model, designed to provide you with information and </span><br><span class="line">engage in conversation on various topics. I am still under development, </span><br><span class="line">but I am constantly learning new things.</span><br><span class="line">Would you like me to tell you more about myself or would you like to ask </span><br><span class="line">me a question?</span><br></pre></td></tr></table></figure>
+
+<p>我们可以输入问题，然后等待模型的回答。</p>
+<p>我们还可以使用 ollama create 命令来创建一个 LLM.</p>
+<p>首先要编写一个 Modefile 文件，文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FROM qwen</span><br><span class="line"></span><br><span class="line"># set the temperature to 1 [higher is more creative, lower is more coherent]</span><br><span class="line">PARAMETER temperature 1</span><br><span class="line">PARAMETER max_tokens 10</span><br><span class="line"></span><br><span class="line"># set the system message</span><br><span class="line">SYSTEM &quot;&quot;&quot;</span><br><span class="line">You are Tracy, a execllent teacher. Answer as Tracy, the assistant, only.</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>我上面基于通义千问qwen模型创建了一个LLM，设置它的 temperature 为1。</p>
+<p>执行以下命令创建该模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama create tracy(模型名称) -f .&#x2F;Modefile</span><br></pre></td></tr></table></figure>
+
+<p>创建完成后，我们可以执行 ollama list 查看模型列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">zanwang@zan ollamaproject % ollama list</span><br><span class="line">NAME                 	ID          	SIZE  	MODIFIED      </span><br><span class="line">codellama:latest     	8fdf8f752f6e	3.8 GB	47 hours ago 	</span><br><span class="line">gemma:latest         	430ed3535049	5.2 GB	47 hours ago 	</span><br><span class="line">llama2:latest        	78e26419b446	3.8 GB	2 days ago   	</span><br><span class="line">llama2-chinese:latest	cee11d703eee	3.8 GB	47 hours ago 	</span><br><span class="line">mistral:latest       	61e88e884507	4.1 GB	47 hours ago 	</span><br><span class="line">qwen:latest          	d53d04290064	2.3 GB	46 hours ago 	</span><br><span class="line">tracy:latest         	e941b7cd9ad8	2.3 GB	9 seconds ago</span><br></pre></td></tr></table></figure>
+
+<p>然后我们就可以使用它了：ollama run tracy</p>
+<h1 id="Ollama-API的使用"><a href="#Ollama-API的使用" class="headerlink" title="Ollama API的使用"></a>Ollama API的使用</h1><p>除了直接聊天，ollama 还提供了 REST API 供我们使用，我们可以像调用 OpenAI 接口那样调用 ollama 的接口。启动 ollama 服务以后，我们可以直接调用接口获取 LLM 的响应，</p>
+<p>我们可以调用聊天接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">zanwang@zan blog % curl http:&#x2F;&#x2F;localhost:11434&#x2F;api&#x2F;chat -d &#39;&#123;</span><br><span class="line">  &quot;model&quot;: &quot;qwen&quot;,</span><br><span class="line">  &quot;messages&quot;: [</span><br><span class="line">    &#123; &quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;你好，你是谁？&quot; &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+<p>api/chat 接口可以传入以下参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model: 模型名称</span><br><span class="line">messages: 消息内容</span><br><span class="line">format: 响应数据的格式，默认是json</span><br><span class="line">template: prompt的模板</span><br><span class="line">stream: 是否流式输出, 默认true</span><br></pre></td></tr></table></figure>
 
 
 
-<p>redis_pub.py： 发布者</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> redis_helper <span class="keyword">import</span> RedisHelper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj = RedisHelper()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    obj.public(<span class="string">"hello_%s"</span> % i)</span><br></pre></td></tr></table></figure>
+<p>也可以调用 generate 接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;localhost:11434&#x2F;api&#x2F;generate -d &#39;&#123;</span><br><span class="line">  &quot;model&quot;: &quot;llama2-chinese&quot;,</span><br><span class="line">  &quot;prompt&quot;:&quot;你好，你是谁&quot;</span><br><span class="line">&#125;&#39;</span><br></pre></td></tr></table></figure>
 
-<p>redis_sub.py： 订阅者</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> redis_helper <span class="keyword">import</span> RedisHelper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj = RedisHelper()</span><br><span class="line">redis_sub = obj.subscribe()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    msg = redis_sub.parse_response()</span><br><span class="line">    print(msg)</span><br></pre></td></tr></table></figure>
 
-<h1 id="实现方式二"><a href="#实现方式二" class="headerlink" title="实现方式二"></a>实现方式二</h1><p>redis_helper.py： 封装发布订阅方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisHelper</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.__conn = redis.Redis(host=<span class="string">"localhost"</span>)</span><br><span class="line">        <span class="comment"># 频道名称</span></span><br><span class="line">        self.chan_sub = <span class="string">"orders"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">public</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        在指定频道上发布消息</span></span><br><span class="line"><span class="string">        :param msg:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># publish(): 在指定频道上发布消息，返回订阅者的数量</span></span><br><span class="line">        self.__conn.publish(self.chan_sub, msg)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 返回发布订阅对象，通过这个对象你能1）订阅频道 2）监听频道中的消息</span></span><br><span class="line">        pub = self.__conn.pubsub()</span><br><span class="line">        <span class="comment"># 订阅某个频道，与publish()中指定的频道一样。消息会发布到这个频道中</span></span><br><span class="line">        pub.subscribe(self.chan_sub)</span><br><span class="line">        <span class="keyword">return</span> pub</span><br></pre></td></tr></table></figure>
 
-<p>redis_pub.py：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> redis_helper <span class="keyword">import</span> RedisHelper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj = RedisHelper()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    obj.public(<span class="string">"hello_%s"</span> % i)</span><br></pre></td></tr></table></figure>
+<p>ollama rest api文档：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;ollama&#x2F;ollama&#x2F;blob&#x2F;main&#x2F;docs&#x2F;api.md</span><br></pre></td></tr></table></figure>
 
-<p>redis_sub.py：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> redis_helper <span class="keyword">import</span> RedisHelper</span><br><span class="line"></span><br><span class="line">obj = RedisHelper()</span><br><span class="line">redis_sub = obj.subscribe()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># listen()函数封装了parse_response()函数</span></span><br><span class="line">    msg = redis_sub.listen()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> msg:</span><br><span class="line">        <span class="keyword">if</span> i[<span class="string">"type"</span>] == <span class="string">"message"</span>:</span><br><span class="line">            print(str(i[<span class="string">"channel"</span>], encoding=<span class="string">"utf-8"</span>) + <span class="string">":"</span> + str(i[<span class="string">"data"</span>], encoding=<span class="string">"utf-8"</span>))</span><br><span class="line">        <span class="keyword">elif</span> i[<span class="string">"type"</span>] == <span class="string">"subscrube"</span>:</span><br><span class="line">            print(str(i[<span class="string">"chennel"</span>], encoding=<span class="string">"utf-8"</span>))</span><br></pre></td></tr></table></figure>
+<h1 id="Ollama-UI的使用"><a href="#Ollama-UI的使用" class="headerlink" title="Ollama UI的使用"></a>Ollama UI的使用</h1><p>使用 Ollama 创建好模型后，我们离创建一个聊天应用就差web界面了，下面是几个基于 ollama 的chat ui，有请兴趣的同学可以试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chatbot ollama：https:&#x2F;&#x2F;github.com&#x2F;ivanfioravanti&#x2F;chatbot-ollama</span><br><span class="line">open webui：https:&#x2F;&#x2F;github.com&#x2F;open-webui&#x2F;open-webui</span><br><span class="line">ollama ui：https:&#x2F;&#x2F;github.com&#x2F;ollama-webui&#x2F;ollama-webui-lite</span><br></pre></td></tr></table></figure>
 
-<p>以上两种方式的不同之处在于，方式一使用发布订阅对象的parse_response()方法获取订阅信息，方式二使用发布订阅对象的listen()方法获取订阅信息。listen()方法是对parse_response()方法的封装，加入了阻塞，并将parse_response()返回的结果进行了处理，使结果更加简单。</p>
+
+
+
+
+<p>参考链接：</p>
+<p>Ollama官网：<a href="https://ollama.com/" target="_blank" rel="noopener">https://ollama.com/</a></p>
+<p>Ollama Github：<a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">https://github.com/ollama/ollama</a></p>
 
     </div>
 
@@ -300,9 +331,6 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/blog/tags/Redis/" rel="tag"># Redis</a>
-          </div>
 
         
 
@@ -310,13 +338,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/2020/05/30/python%E5%BC%80%E5%8F%91%E4%B9%8B%E4%BD%BF%E7%94%A8RabbitMQ%E5%81%9A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="prev" title="python开发之使用RabbitMQ做消息队列">
-      <i class="fa fa-chevron-left"></i> python开发之使用RabbitMQ做消息队列
+    <a href="/blog/2024/02/22/LangChain%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="prev" title="LangChain的基本使用">
+      <i class="fa fa-chevron-left"></i> LangChain的基本使用
     </a></div>
-      <div class="post-nav-item">
-    <a href="/blog/2020/05/30/python%E5%BC%80%E5%8F%91%E4%B8%ADdjango%E5%92%8Ctornado%E6%A1%86%E6%9E%B6%E7%9A%84%E5%BC%82%E5%90%8C/" rel="next" title="python开发中django和tornado框架的异同">
-      python开发中django和tornado框架的异同 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -375,7 +400,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现方式一"><span class="nav-number">1.</span> <span class="nav-text">实现方式一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现方式二"><span class="nav-number">2.</span> <span class="nav-text">实现方式二</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ollama的安装"><span class="nav-number">1.</span> <span class="nav-text">Ollama的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ollama的使用"><span class="nav-number">2.</span> <span class="nav-text">Ollama的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ollama-API的使用"><span class="nav-number">3.</span> <span class="nav-text">Ollama API的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ollama-UI的使用"><span class="nav-number">4.</span> <span class="nav-text">Ollama UI的使用</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
