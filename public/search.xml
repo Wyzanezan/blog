@@ -3945,8 +3945,10 @@
 
 
 
-<p>上面简单介绍了一下 LlamaIndex 的基本使用流程。</p>
-<p>参考文档：<a href="https://docs.llamaindex.ai/en/stable/" target="_blank" rel="noopener">https://docs.llamaindex.ai/en/stable/</a></p>
+<p>以上是对 LlamaIndex 的一个简单介绍，从上面的介绍可以看出 LlamaIndex 与 LangChain 中 Retrieval 模块的使用基本上是类似的。</p>
+<p>参考文档：</p>
+<p><a href="https://docs.llamaindex.ai/en/stable/" target="_blank" rel="noopener">https://docs.llamaindex.ai/en/stable/</a></p>
+<p><a href="https://python.langchain.com/docs/modules/data_connection/" target="_blank" rel="noopener">https://python.langchain.com/docs/modules/data_connection/</a></p>
 ]]></content>
       <categories>
         <category>Python</category>

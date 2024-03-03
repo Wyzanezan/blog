@@ -376,6 +376,10 @@ accumulate：给定一组 Node 对象和查询，将查询应用于每个 Node �
 
 
 
-上面简单介绍了一下 LlamaIndex 的基本使用流程。
+以上是对 LlamaIndex 的一个简单介绍，从上面的介绍可以看出 LlamaIndex 与 LangChain 中 Retrieval 模块的使用基本上是类似的。
 
-参考文档：https://docs.llamaindex.ai/en/stable/
+参考文档：
+
+https://docs.llamaindex.ai/en/stable/
+
+https://python.langchain.com/docs/modules/data_connection/
