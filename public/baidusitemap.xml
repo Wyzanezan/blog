@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://wyzane.gitee.io/blog/blog/2024/03/04/FastAPI%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2024-03-04</lastmod>
+  </url>  <url>
     <loc>http://wyzane.gitee.io/blog/blog/2024/03/01/LlamaIndex%E7%9A%84%E4%BB%8B%E7%BB%8D/</loc>
     <lastmod>2024-03-03</lastmod>
   </url>  <url>
