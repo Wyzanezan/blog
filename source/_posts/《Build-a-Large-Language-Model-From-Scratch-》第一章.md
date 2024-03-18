@@ -13,7 +13,7 @@ typora-root-url: ./《Build-a-Large-Language-Model-From-Scratch-》第一章
 
 关于他的其它著作有：Python Machine Learning》、《Machine Learning with PyTorch and Scikit-Learn》等。
 
-《*Build a Large Language Model (From Scratch)*》这本书介绍了什么是大语言模型（LLM），并通过从头开始构建大语言模型 (LLM)，让读者了解如何创建、训练和调整大语言模型 (LLM)。在构建大型语言模型的过程中，我们将发现它如何从内到外地工作。
+《*Build a Large Language Model (From Scratch)*》这本书目前还在创作当中，它是在 Manning 上发布的，原版的可以到 www.manning.com 上去看。这本书介绍了什么是大语言模型（LLM），并通过从头开始构建大语言模型 (LLM)，让读者了解如何创建、训练和调整大语言模型 (LLM)。在构建大型语言模型的过程中，我们将发现它如何从内到外地工作。
 
 下面是这本书第一章的翻译。
 
@@ -57,7 +57,7 @@ LLM 使用一种称为 Transformer 的架构（在 1.4 节中有更详细的介�
 
 接下来的部分将涵盖 LLM 今天可以解决的一些问题、 LLM 要解决的挑战以及我们将在本书中实现的一般 LLM 架构。
 
-## LLMs的应用
+## LLM的应用
 
 由于其解析和理解非结构化文本数据的先进能力， LLM 在各个领域拥有广泛的应用。如今， LLM 被用于机器翻译、小说文本生成、情感分析、文本摘要和许多其他任务。 LLM 最近被用于内容创作，例如撰写小说、文章，甚至计算机代码。
 
@@ -93,7 +93,7 @@ LLM 的第一个训练阶段也称为预训练，创建初始预训练的 LLM，
 
 在本书中，我们将介绍预训练和微调 LLM 的代码实现，并且在预训练基础 LLM 后，我们将在本书后面深入研究指令微调和分类微调的细节。
 
-## 使用LLMs完成多种任务
+## 使用LLM完成多种任务
 
 大多数现代 LLM 都依赖于 Transformer 架构，这是 2017 年论文《Attention Is All You Need》中介绍的一种深度神经网络架构。为了理解 LLM ，我们必须简要回顾一下最初的转换器，它最初是为机器翻译而开发的，将英语文本翻译成德语和法语。图 1.4 描述了 Transformer 架构的简化版本。
 
