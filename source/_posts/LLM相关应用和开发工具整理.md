@@ -13,6 +13,7 @@ LLM 相关的应用和工具大致可以分为以下几类：
 - AI Agent 开发平台
 - LLM 应用开发平台
 - LLM 管理工具
+- LLM Python 开发库
 
 下面分别介绍下每个分类都有哪些应用和工具。
 
@@ -29,7 +30,7 @@ AI Agent 是指能够在其环境中自动执行任务或达成目标的软件�
 5. **学习能力（Learning）**：许多AI Agent具备学习能力，可以通过经验改进其行为。这通常是通过机器学习和深度学习实现的，使得代理能够基于过去的行为和结果来优化其未来的决策和动作。
 6. **适应性（Adaptability）**：与学习能力密切相关，适应性是指AI Agent能够适应环境的变化，并据此调整其行为的能力。
 
-目前比较流行的 AI Agent 应用开发平台有：AutoGen、MetaGPT、CrewAI、XAgent、AutoGPT等。
+目前比较流行的 AI Agent 应用开发平台有：AutoGen、MetaGPT、CrewAI、XAgent、AutoGPT、OpenAgents 等。
 
 ## AutoGen
 
@@ -86,9 +87,51 @@ CrewAI 是用于编排角色扮演、自主人工智能代理的框架。通过�
 
 GIthub：https://github.com/joaomdmoura/crewAI
 
+## AutoGPT
+
+AutoGPT 的宗旨是为每个人提供易于使用和构建的人工智能。它们提供工具，以便我们可以专注于重要的事情。
+
+AutoGPT 项目由四个主要部分组成：
+
+```txt
+Agent：是 AutoGPT 的核心以及启动这一切的项目：由 LLM 支持的半自主 agent，可以为我们执行任何任务
+Benchmark（基准）：又名 agbenchmark，衡量你的 agent 的表现！ agbenchmark 可与任何支持 agent 协议的 agent 一起使用，并且与项目的 CLI 集成使得与 AutoGPT 和基于 forge 的代理一起使用变得更加容易。
+Forge（熔炉）：打造你自己的 agent！ Forge 是适合您的 agent 应用程序的现成模板。所有样板代码都已处理完毕，让您可以将所有创造力投入到使您的代理与众不同的事情中。
+Frontend（前端）：适用于任何符合 agent 协议的 agent 的易于使用的开源前端。
+```
+
+文档：https://docs.agpt.co/
+
+Github：https://github.com/Significant-Gravitas/AutoGPT
+
+## OpenAgents
+
+由于当前的语言代理框架旨在促进构建概念证明语言智能体（Language Agent）的搭建，但是同时忽视了非专家用户的使用，对应用级设计也关注较少。 OpenAgents 是一个用于在日常生活中使用和托管语言智能体的开放平台。
+
+OpenAgents中实现了三个智能体：
+
+```txt
+1. 数据智能体-用于用Python/SQL和数据工具进行数据分析；
+2. 插件智能体-具有200多个日常工具，并且可供拓展；
+3. 网络智能体-用于自动上网。
+```
+
+OpenAgents可以分析数据，调用插件，像ChatGPT Plus一样控制浏览器，并且它：
+
+```txt
+1. 易于部署
+2. 全栈代码
+3. 聊天Web UI
+4. 代理方法
+```
+
+OpenAgents 使普通用户通过为快速响应和常见失败进行优化的web UI与智能体功能进行交互，同时为开发人员和研究人员在本地设置上提供无缝部署体验，为制作创新的语言代理和实现现实世界评估提供了基础。 
+
+Github：https://github.com/xlang-ai/OpenAgents
+
 # LLM 应用开发平台
 
-LLM 应用开发平台允许我们创建自己的知识库，并基于这些知识库快速开发个人或者企业的 RAG （检索增强生成）应用。这类平台应用有 Dify、Flowise、FastGPT、TaskingAI等。
+LLM 应用开发平台允许我们创建自己的知识库，并基于这些知识库快速开发个人或者企业的 RAG （检索增强生成）应用。这类平台应用有 Dify、Flowise、FastGPT、TaskingAI、ChatGPT-Next-Web 等。
 
 ## Dify
 
@@ -154,6 +197,28 @@ TaskingAI 的架构设计以模块化和灵活性为核心，能够与各种 LLM
 
 Github：https://github.com/TaskingAI/TaskingAI
 
+## ChatGPT-Next-Web
+
+ChatGPT-Next-Web 可以让我们一键免费部署你的私人 ChatGPT 网页应用，支持 GPT3, GPT4 & Gemini Pro 模型。
+
+它有如下特点：
+
+```txt
+1. 只需在 1 分钟内即可在 Vercel 上一键免费部署
+2. 提供Linux/Windows/MacOS 上的紧凑型客户端下载
+3. 与自行部署的LLM完全兼容，推荐与RWKV-Runner或LocalAI一起使用
+4. 隐私第一，所有数据都存储在浏览器本地
+5. Markdown 支持：LaTex、mermaid、代码高亮等。
+6. 响应式设计、深色模式和 PWA 
+7. 首屏加载速度快（~100kb），支持流式响应
+8. v2 中的新增功能：使用提示模板（掩码）创建、共享和调试您的聊天工具 
+9. 由 Awesome-chatgpt-prompts-zh 和 Awesome-chatgpt-prompts 提供支持的很棒的 prompt
+10. 自动压缩聊天历史记录以支持长时间对话，同时保存您的令牌
+11. 国际化：英语、西班牙语、意大利语、土耳其语、德语、Tiếng Việt、Русский、Čeština、한국어、印度尼西亚
+```
+
+Github：https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web
+
 # LLM 管理工具
 
 LLM 管理工具可以帮助我们管理开源大语言模型，它们可以下载、删除、运行开源大模型，并且提供调用 LLM 服务的API，使我们可以很容易的构建基于本地的 LLM 应用。
@@ -186,6 +251,15 @@ LocalAI 允许我们使用消费级硬件在本地或本地运行 LLM 、生成�
 
 文档：https://localai.io/
 
+# LLM Python开发库
+
+LLM Python 开发库提供了通用的 API 让我们来调用各种大模型服务，除了 LangChain、LlamaIndex 这这些常用的库，还有下面一些很好用的库：
+
+```txt
+1. 提供统一接口调用 LLM 的库：transformers、vllm、litellm 等
+2. 开发 web 界面的库：streamlit、chainlit 等
+```
 
 
-以上就是 LLM 相关的应用和开发工具，后面还会持续补充。
+
+以上就是 LLM 相关的应用和开发工具，后面还会持续补充 ...
