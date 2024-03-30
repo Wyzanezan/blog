@@ -131,7 +131,7 @@ Github：https://github.com/xlang-ai/OpenAgents
 
 # LLM 应用开发平台
 
-LLM 应用开发平台允许我们创建自己的知识库，并基于这些知识库快速开发个人或者企业的 RAG （检索增强生成）应用。这类平台应用有 Dify、Flowise、FastGPT、TaskingAI、ChatGPT-Next-Web 等。
+LLM 应用开发平台允许我们创建自己的知识库，并基于这些知识库快速开发个人或者企业的 RAG （检索增强生成）应用。这类平台应用有 Dify、Flowise、FastGPT、TaskingAI、ChatGPT-Next-Web、LobeChat、PrivateGPT 等。
 
 ## Dify
 
@@ -218,6 +218,55 @@ ChatGPT-Next-Web 可以让我们一键免费部署你的私人 ChatGPT 网页应
 ```
 
 Github：https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web
+
+## LobeChat
+
+Lobe Chat - 一个开源、现代设计的 LLM / 人工智能聊天框架。支持多AI提供商（OpenAI / Claude 3 / Gemini / Perplexity / Bedrock / Azure / Mistral / Ollama），多模态（Vision / TTS）和插件系统。一键免费部署您的私人 ChatGPT 聊天应用程序。
+
+Lobe Chat 有以下特点：
+
+```txt
+1. 多模式服务提供商支持，支持了AWS Bedrock、Google AI、Anthropic、ChatGLM、Moonshot AI、Groq等模型服务商
+2. 本地大语言模型 (LLM) 支持，LobeChat 基于 Ollama 支持了本地模型的使用，让用户能够更灵活地使用自己的或第三方的模型
+3. 模型视觉识别，LobeChat 已经支持 OpenAI 最新的 gpt-4-vision 支持视觉识别的模型，这是一个具备视觉识别能力的多模态应用。 用户可以轻松上传图片或者拖拽图片到对话框中，助手将能够识别图片内容，并在此基础上进行智能对话，构建更智能、更多元化的聊天场景
+4. TTS 和 STT 语音会话，LobeChat 支持文字转语音（Text-to-Speech，TTS）和语音转文字（Speech-to-Text，STT）技术，这使得我们的应用能够将文本信息转化为清晰的语音输出，用户可以像与真人交谈一样与我们的对话助手进行交流。 用户可以从多种声音中选择，给助手搭配合适的音源。 同时，对于那些倾向于听觉学习或者想要在忙碌中获取信息的用户来说，TTS 提供了一个极佳的解决方案
+5. 文本生成图像，支持最新的文本到图片生成技术，LobeChat 现在能够让用户在与助手对话中直接调用文生图工具进行创作。 通过利用 DALL-E 3、MidJourney 和 Pollinations 等 AI 工具的能力， 助手们现在可以将你的想法转化为图像。 同时可以更私密和沉浸式地完成你的创作过程
+6. 插件系统（函数调用），LobeChat 的插件生态系统是其核心功能的重要扩展，它极大地增强了 ChatGPT 的实用性和灵活性。通过利用插件，ChatGPT 能够实现实时信息的获取和处理，例如自动获取最新新闻头条，为用户提供即时且相关的资讯
+7. Agent 市场 (GPTs)，在 LobeChat 的助手市场中，创作者们可以发现一个充满活力和创新的社区，它汇聚了众多精心设计的助手，这些助手不仅在工作场景中发挥着重要作用，也在学习过程中提供了极大的便利。 我们的市场不仅是一个展示平台，更是一个协作的空间。在这里，每个人都可以贡献自己的智慧，分享个人开发的助手
+8. 使用渐进式Web应用程序 (PWA)，采用了渐进式 Web 应用 PWA 技术， 这是一种能够将网页应用提升至接近原生应用体验的现代 Web 技术。通过 PWA，LobeChat 能够在桌面和移动设备上提供高度优化的用户体验，同时保持轻量级和高性能的特点。 在视觉和感觉上，我们也经过精心设计，以确保它的界面与原生应用无差别，提供流畅的动画、响应式布局和适配不同设备的屏幕分辨率
+9. 移动设备适配，针对移动设备进行了一系列的优化设计，以提升用户的移动体验
+10. 可以自定义主题，LobeChat 在界面设计上充分考虑用户的个性化体验，因此引入了灵活多变的主题模式，其中包括日间的亮色模式和夜间的深色模式。 除了主题模式的切换，还提供了一系列的颜色定制选项，允许用户根据自己的喜好来调整应用的主题色彩。无论是想要沉稳的深蓝，还是希望活泼的桃粉，或者是专业的灰白，用户都能够在 LobeChat 中找到匹配自己风格的颜色选择
+```
+
+Github：https://github.com/lobehub/lobe-chat
+
+## PrivateGPT
+
+PrivateGPT 是一个可投入生产的 AI 项目，可让您利用大型语言模型 (LLM) 的功能提出有关文档的问题，即使在没有互联网连接的情况下。 100% 私有，任何数据都不会离开您的执行环境。该项目提供了一个 API，提供构建私有的、上下文感知的 AI 应用程序所需的所有原语。它遵循并扩展了 OpenAI API 标准，支持普通响应和流式响应。这意味着，如果您可以在您的工具之一中使用 OpenAI API，则可以使用您自己的 PrivateGPT API，无需更改代码，并且如果您在本地设置中运行 privateGPT，则免费。
+
+PrivateGPT 是一项服务，它将一组 AI RAG 原语包装在一组全面的 API 中，提供私有、安全、可定制且易于使用的 GenAI 开发框架。
+
+它使用FastAPI和LLamaIndex作为其核心框架。这些可以通过更改代码库本身来定制。
+
+它支持各种本地和远程的 LLM 提供商、嵌入提供商和向量存储。这些可以轻松更改，而无需更改代码库。
+
+API 分为两个逻辑块： 
+
+```txt
+1. 高级 API，抽象了 RAG（检索增强生成）管道实现的所有复杂性：
+1）文档摄取：内部管理文档解析、分割、元数据提取、嵌入生成和存储。
+2）使用所摄取文档中的上下文进行聊天和完成：抽象上下文检索、提示工程和响应生成
+
+2. 低级 API，允许高级用户实现自己的复杂管道：
+1）嵌入生成：基于一段文本。
+2）上下文块检索：给定查询，从摄取的文档中返回最相关的文本块。
+```
+
+除此之外，还提供了一个可用的 Gradio UI 客户端来测试 API，以及一组有用的工具，例如批量模型下载脚本、摄取脚本、文档文件夹监视等。
+
+Github：https://github.com/zylon-ai/private-gpt
+
+文档：https://docs.privategpt.dev/overview/welcome/introduction
 
 # LLM 管理工具
 
